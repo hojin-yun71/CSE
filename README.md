@@ -1,1 +1,1 @@
-Workspace for CSE (Computer Science and Engineering) classes at the Ohio State University.
+Workspace for CSE 2221 (Software I) class at the Ohio State University.
