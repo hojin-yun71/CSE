@@ -5,6 +5,7 @@ import components.simplereader.SimpleReader1L;
 import components.simplewriter.SimpleWriter;
 import components.simplewriter.SimpleWriter1L;
 import components.xmltree.XMLTree;
+import components.xmltree.XMLTree1;
 
 /**
  * Put a short phrase describing the program here.
@@ -129,15 +130,20 @@ public final class Homework13 {
      *            the command line arguments
      */
     public static void main(String[] args) {
+
         SimpleReader in = new SimpleReader1L();
         SimpleWriter out = new SimpleWriter1L();
 
         NaturalNumber n = new NaturalNumber1L(in.nextInteger());
         NaturalNumber n1 = new NaturalNumber1L(n);
 
+        String file = in.nextLine();
+        XMLTree xml = new XMLTree1(file);
+
         out.println(productOfDigits1(n));
         out.println(productOfDigits2(n1));
         out.println(toInt(n1));
+        out.println(findTag(xml, "test"));
 
         /*
          * Close input and output streams
