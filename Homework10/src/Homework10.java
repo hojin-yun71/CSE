@@ -7,12 +7,12 @@ import components.naturalnumber.NaturalNumber1L;
  * @author Put your name here
  *
  */
-public final class ProgramSkeleton {
+public final class Homework10 {
 
     /**
      * Private constructor so this utility class cannot be instantiated.
      */
-    private ProgramSkeleton() {
+    private Homework10() {
     }
 
     /**
