@@ -4,6 +4,7 @@ import components.simplereader.SimpleReader;
 import components.simplereader.SimpleReader1L;
 import components.simplewriter.SimpleWriter;
 import components.simplewriter.SimpleWriter1L;
+import components.xmltree.XMLTree;
 
 /**
  * Put a short phrase describing the program here.
@@ -98,8 +99,8 @@ public final class Homework13 {
      *            the {@code XMLTree}
      * @param tag
      *            the tag name
-     * @return true if the given tag appears in the given {@code XMLTree},
-     *         false otherwise
+     * @return true if the given tag appears in the given {@code XMLTree}, false
+     *         otherwise
      * @ensures <pre>
      * findTag =
      *    [true if the given tag appears in the given {@code XMLTree}, false otherwise]
@@ -109,7 +110,16 @@ public final class Homework13 {
 
         boolean hasTag = false;
 
-        if()
+        if (!xml.isTag()) {
+            if (xml.label().equals(tag)) {
+                hasTag = true;
+            } else {
+                for (int i = 0; i < xml.numberOfChildren(); i++) {
+                    hasTag = findTag(xml.child(i), tag);
+                }
+            }
+        }
+        return hasTag;
     }
 
     /**
