@@ -4,11 +4,9 @@ import components.simplewriter.SimpleWriter;
 import components.simplewriter.SimpleWriter1L;
 
 /**
- * Calculates the square root of the inputed number to within a relative error
- * of no more than 0.01%.
+ * Calculates square root of inputed number to within a inputed relative error.
  *
  * @author Hojin Yun
- *
  */
 public final class Newton4 {
 
@@ -19,22 +17,26 @@ public final class Newton4 {
     }
 
     /**
-     * Computes estimate of square root of x to within relative error 0.01%.
-     * Returns 0 if the user inputs x = 0.
+     * Computes estimate of square root of x to within relative error
+     * {@code e}%. Returns 0 if the user inputs x = 0.
      *
      * @param x
-     *            Zero or positive number to compute square root of.
+     *            Zero or positive number to compute square root of
      * @param e
      *            Relative error between the estimate and the actual square root
-     *            of x. Needs to be over 0.
-     * @return Estimate of square root.
+     *            of x
+     * @return Estimate of square root
      */
     private static double sqrt(double x, double e) {
-
+        /*
+         * Filter out for x = 0.
+         */
         if (x == 0) {
             return 0;
         }
-
+        /*
+         * Initial guess for x^0.5 is x itself.
+         */
         double r = x;
 
         do {
@@ -55,29 +57,24 @@ public final class Newton4 {
         SimpleReader in = new SimpleReader1L();
         SimpleWriter out = new SimpleWriter1L();
 
-        out.print("Enter your number : ");
+        out.print("Enter number: ");
         double x = in.nextDouble();
 
         while (x >= 0) {
-
-            out.print("Enter your desired relative error (without %) : ");
+            out.print("Enter desired relative error (without %): ");
             double e = in.nextDouble();
 
             double result = sqrt(x, e);
+            out.println("The square root is : " + result + "\n");
 
-            out.println("The square root of your number is : " + result + "\n");
-
-            out.print("Enter your next number : ");
+            out.print("Enter next number : ");
             x = in.nextDouble();
         }
-
         out.println("\nThanks for using my program.");
-
         /*
          * Close input and output streams
          */
         in.close();
         out.close();
     }
-
 }
