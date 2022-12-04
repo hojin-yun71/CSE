@@ -5,8 +5,6 @@ import components.simplewriter.SimpleWriter1L;
 import components.utilities.FormatChecker;
 
 /**
- * CSE 2221 Project 3 - Pseudoscience
- *
  * Computes the best approximation using the de Jager formula along with the
  * exponents and relative error for the best approximation.
  *
@@ -32,19 +30,17 @@ public final class ABCDGuesser2 {
      * @return a positive real number entered by the user
      */
     private static double getPositiveDouble(SimpleReader in, SimpleWriter out) {
+        out.print("Enter a positive real number: ");
+        String s = in.nextLine();
 
-        out.print("Enter a positive real number : ");
-        String s1 = in.nextLine();
-
-        while (!(FormatChecker.canParseDouble(s1))
-                || (Double.parseDouble(s1) <= 0)) {
-
+        while (!(FormatChecker.canParseDouble(s))
+                || !(Double.parseDouble(s) > 0)) {
             out.print(
-                    "Input is not a positive real number.\n\nEnter a positive real number : ");
-            s1 = in.nextLine();
+                    "Input is not a positive real number.\n\nEnter a positive real number: ");
+            s = in.nextLine();
         }
 
-        return Double.parseDouble(s1);
+        return Double.parseDouble(s);
     }
 
     /**
@@ -59,20 +55,18 @@ public final class ABCDGuesser2 {
      */
     private static double getPositiveDoubleNotOne(SimpleReader in,
             SimpleWriter out) {
+        out.print("Enter a positive real number that is not 1: ");
+        String s = in.nextLine();
 
-        out.print("Enter a positive real number that is not 1 : ");
-        String s2 = in.nextLine();
-
-        while (!(FormatChecker.canParseDouble(s2))
-                || (Double.parseDouble(s2) <= 0)
-                || (Double.parseDouble(s2) == 1)) {
-
-            out.print(
-                    "Input is either not a positive real number or 1.\n\nEnter a positive real number that is not 1 : ");
-            s2 = in.nextLine();
+        while (!(FormatChecker.canParseDouble(s))
+                || !(Double.parseDouble(s) > 0)
+                || (Double.parseDouble(s) == 1)) {
+            out.println("Input is either not a positive real number or 1.\n");
+            out.println("Enter a positive real number that is not 1: ");
+            s = in.nextLine();
         }
 
-        return Double.parseDouble(s2);
+        return Double.parseDouble(s);
     }
 
     /**
@@ -95,45 +89,35 @@ public final class ABCDGuesser2 {
     private static void deJagerCalculation(double u, double w, double x,
             double y, double z, SimpleWriter out) {
 
-        double approx;
-        double bestApprox = -1;
+        double guess;
+        double bestGuess = -1;
         double[] exponents = { -5, -4, -3, -2, -1, -1.0 / 2.0, -1.0 / 3.0,
                 -1.0 / 4.0, 0, 1.0 / 4.0, 1.0 / 3.0, 1.0 / 2.0, 1, 2, 3, 4, 5 };
-
-        int iTemp = -1, jTemp = -1, kTemp = -1, lTemp = -1;
+        int iBest = -1, jBest = -1, kBest = -1, lBest = -1;
 
         for (int i = 0; i < 17; i++) {
-
             for (int j = 0; j < 17; j++) {
-
                 for (int k = 0; k < 17; k++) {
-
                     for (int l = 0; l < 17; l++) {
-
-                        approx = (Math.pow(w, exponents[i]))
+                        guess = (Math.pow(w, exponents[i]))
                                 * (Math.pow(x, exponents[j]))
                                 * (Math.pow(y, exponents[k]))
                                 * (Math.pow(z, exponents[l]));
-
-                        if ((Math.abs(u - approx)) < (Math
-                                .abs(u - bestApprox))) {
-
-                            bestApprox = approx;
-
-                            iTemp = i;
-                            jTemp = j;
-                            kTemp = k;
-                            lTemp = l;
+                        if ((Math.abs(u - guess)) < (Math.abs(u - bestGuess))) {
+                            bestGuess = guess;
+                            iBest = i;
+                            jBest = j;
+                            kBest = k;
+                            lBest = l;
                         }
                     }
                 }
             }
         }
-
-        out.println("\nBest approximation : " + bestApprox);
-        out.println("Exponents : " + iTemp + " " + jTemp + " " + kTemp + " "
-                + lTemp);
-        out.println("Relative error : " + ((Math.abs(u - bestApprox) / u) * 100)
+        out.println("\nBest approximation: " + bestGuess);
+        out.println("Exponents: " + exponents[iBest] + " " + exponents[jBest]
+                + " " + exponents[kBest] + " " + exponents[lBest]);
+        out.println("Relative error: " + ((Math.abs(u - bestGuess) / u) * 100)
                 + "%");
     }
 
@@ -154,12 +138,10 @@ public final class ABCDGuesser2 {
         double z = getPositiveDoubleNotOne(in, out);
 
         deJagerCalculation(u, w, x, y, z, out);
-
         /*
          * Close input and output streams
          */
         in.close();
         out.close();
     }
-
 }
